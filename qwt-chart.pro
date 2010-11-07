@@ -11,8 +11,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    plot.cpp \
+    samplingthread.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    plot.h \
+    samplingthread.h
 
 FORMS    += mainwindow.ui
+
+LIBS += -lqwt
