@@ -7,6 +7,8 @@ namespace Ui {
 	class MainWindow;
 }
 
+class Plot;
+
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
@@ -17,6 +19,7 @@ public:
 
 private:
 	Ui::MainWindow *ui;
+	Plot *mPlot;
 };
 
 #endif // MAINWINDOW_H
