@@ -13,11 +13,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     plot.cpp \
-    samplingthread.cpp
+    samplingthread.cpp \
+    curvedata.cpp \
+    signaldata.cpp
 
 HEADERS  += mainwindow.h \
     plot.h \
-    samplingthread.h
+    samplingthread.h \
+    curvedata.h \
+    sample.h \
+    signaldata.h
 
 FORMS    += mainwindow.ui
 

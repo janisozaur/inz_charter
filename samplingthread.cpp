@@ -24,6 +24,7 @@ void SamplingThread::append(Sample mySample)
 {
 	QMutexLocker locker(&mutex);
 	samples.append(mySample);
+	emit dataArrived();
 }
 
 QVector<Sample> SamplingThread::takeSamples()

@@ -5,10 +5,7 @@
 #include <QMutexLocker>
 #include <qwt_sampling_thread.h>
 
-struct Sample
-{
-	float x, y, z;
-};
+#include "sample.h"
 
 class SamplingThread : public QwtSamplingThread
 {
@@ -20,6 +17,9 @@ public:
 protected:
 	virtual void sample(double elapsed);
 	void append(Sample mySample);
+
+signals:
+	void dataArrived();
 
 private:
 	QVector<Sample> samples;
