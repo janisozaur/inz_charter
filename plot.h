@@ -21,7 +21,7 @@ signals:
 public slots:
 
 private:
-	QwtPlotCurve *mCurve;
+	QVector<QwtPlotCurve *> mCurves;
 	int mTimerId;
 };
 

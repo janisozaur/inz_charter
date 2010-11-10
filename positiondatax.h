@@ -1,27 +1,15 @@
 #ifndef POSITIONDATAX_H
 #define POSITIONDATAX_H
 
-#include <qwt_series_data.h>
-#include <QMutex>
-#include "sample.h"
+#include "positiondata.h"
 
-class PositionDataX : public QwtSeriesData<QPointF>
+class PositionDataX : public PositionData
 {
 public:
-    PositionDataX();
-	~PositionDataX();
+	PositionDataX();
 
-	virtual QPointF sample(size_t i) const;
-	virtual size_t size() const;
-
-	virtual QRectF boundingRect() const;
-
-	//void appendSamples(QVector<Sample> samples);
-
-private:
-	mutable QMutex mMutex;
-	QVector<QPointF> mSamples;
-	QRectF mBoundingRect;
+protected:
+	virtual QPointF pointFromSample(const Sample &sample) const;
 };
 
 #endif // POSITIONDATAX_H

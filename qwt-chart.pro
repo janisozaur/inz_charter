@@ -16,7 +16,10 @@ SOURCES += main.cpp\
     samplingthread.cpp \
     curvedata.cpp \
     signaldata.cpp \
-    positiondatax.cpp
+    positiondata.cpp \
+    positiondatax.cpp \
+    positiondatay.cpp \
+    positiondataz.cpp
 
 HEADERS  += mainwindow.h \
     plot.h \
@@ -24,7 +27,10 @@ HEADERS  += mainwindow.h \
     curvedata.h \
     sample.h \
     signaldata.h \
-    positiondatax.h
+    positiondata.h \
+    positiondatax.h \
+    positiondatay.h \
+    positiondataz.h
 
 FORMS    += mainwindow.ui
 
