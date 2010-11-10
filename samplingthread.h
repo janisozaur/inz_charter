@@ -12,6 +12,7 @@ class SamplingThread : public QwtSamplingThread
 	Q_OBJECT
 public:
 	explicit SamplingThread(QObject *parent = 0);
+	~SamplingThread();
 	QVector<Sample> takeSamples();
 
 protected:

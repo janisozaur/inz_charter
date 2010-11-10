@@ -1,12 +1,21 @@
 #include "samplingthread.h"
 
+#include <QDebug>
+
 SamplingThread::SamplingThread(QObject *parent) :
 	QwtSamplingThread(parent)
 {
+	qDebug() << "SamplingThread ctor" << this;
 }
 
-void SamplingThread::sample(double /*elapsed*/)
+SamplingThread::~SamplingThread()
 {
+	qDebug() << "SamplingThread dtor" << this;
+}
+
+void SamplingThread::sample(double elapsed)
+{
+	qDebug() << "sampling" << elapsed;
 	Sample mySample;
 	static int prevX = 0;
 	static int prevY = 0;
@@ -17,6 +26,7 @@ void SamplingThread::sample(double /*elapsed*/)
 	mySample.x = prevX;
 	mySample.y = prevY;
 	mySample.z = prevZ;
+	mySample.time = (int)elapsed;
 	append(mySample);
 }
 

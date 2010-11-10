@@ -1,12 +1,31 @@
 #include "signaldata.h"
 
+#include <QDebug>
+
+SignalData &SignalData::instance()
+{
+	static SignalData valueVector;
+	return valueVector;
+}
+
 SignalData::SignalData()
 {
+	qDebug() << "SignalData ctor" << this;
+	connect(&mSampler, SIGNAL(dataArrived()), SLOT(fetchSamples()));
+	qDebug() << "starting sampler";
+	start();
+}
+
+SignalData::~SignalData()
+{
+	qDebug() << "SignalData dtor" << this;
+	// TODO: stop sampling thread
 }
 
 Sample SignalData::value(int index) const
 {
 	QMutexLocker locker(&mMutex);
+	//qDebug() << "asking for value of sample" << index;
 	return mSamples[index];
 }
 
@@ -25,6 +44,7 @@ QRectF SignalData::boundingRect() const
 void SignalData::fetchSamples()
 {
 	QMutexLocker locker(&mMutex);
+	qDebug() << "fetching samples";
 	QVector<Sample> newSamples = mSampler.takeSamples();
 	for (int i = 0; i < newSamples.count(); i++) {
 		const Sample mySample = newSamples.at(i);

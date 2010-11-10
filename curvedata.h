@@ -2,12 +2,14 @@
 #define CURVEDATA_H
 
 #include "signaldata.h"
+#include "positiondatax.h"
 #include <qwt_series_data.h>
 
 class CurveData : public QwtSeriesData<Sample>
 {
 public:
 	CurveData();
+	~CurveData();
 	const SignalData &values() const;
 	SignalData &values();
 
@@ -17,9 +19,6 @@ public:
 	virtual QRectF boundingRect() const;
 
 	Sample value(size_t index) const;
-
-private:
-	SignalData mSignal;
 };
 
 #endif // CURVEDATA_H

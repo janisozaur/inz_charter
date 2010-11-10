@@ -15,14 +15,16 @@ SOURCES += main.cpp\
     plot.cpp \
     samplingthread.cpp \
     curvedata.cpp \
-    signaldata.cpp
+    signaldata.cpp \
+    positiondatax.cpp
 
 HEADERS  += mainwindow.h \
     plot.h \
     samplingthread.h \
     curvedata.h \
     sample.h \
-    signaldata.h
+    signaldata.h \
+    positiondatax.h
 
 FORMS    += mainwindow.ui
 
