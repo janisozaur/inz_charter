@@ -44,7 +44,7 @@ QRectF SignalData::boundingRect() const
 void SignalData::fetchSamples()
 {
 	QMutexLocker locker(&mMutex);
-	qDebug() << "fetching samples";
+	//qDebug() << "fetching samples";
 	QVector<Sample> newSamples = mSampler.takeSamples();
 	for (int i = 0; i < newSamples.count(); i++) {
 		const Sample mySample = newSamples.at(i);

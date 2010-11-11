@@ -6,6 +6,7 @@ SamplingThread::SamplingThread(QObject *parent) :
 	QwtSamplingThread(parent)
 {
 	qDebug() << "SamplingThread ctor" << this;
+	this->setInterval(25);
 }
 
 SamplingThread::~SamplingThread()
@@ -15,18 +16,18 @@ SamplingThread::~SamplingThread()
 
 void SamplingThread::sample(double elapsed)
 {
-	qDebug() << "sampling" << elapsed;
+	//qDebug() << "sampling" << elapsed;
 	Sample mySample;
-	static int prevX = 0;
-	static int prevY = 0;
-	static int prevZ = 0;
-	prevX += rand() % 10 - 5;
-	prevY += rand() % 10 - 5;
-	prevZ += rand() % 10 - 5;
+	static float prevX = 0;
+	static float prevY = 0;
+	static float prevZ = 0;
+	prevX += (float)(rand() % 10 - 4.5) / 10.0f;
+	prevY += (float)(rand() % 10 - 4.5) / 10.0f;
+	prevZ += (float)(rand() % 10 - 4.5) / 10.0f;
 	mySample.x = prevX;
 	mySample.y = prevY;
 	mySample.z = prevZ;
-	mySample.time = (int)elapsed;
+	mySample.time = elapsed;
 	append(mySample);
 }
 
