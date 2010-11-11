@@ -3,6 +3,7 @@
 #include "positiondatay.h"
 #include "positiondataz.h"
 #include <qwt_plot_curve.h>
+#include <qwt_plot_canvas.h>
 #include <QDebug>
 #include <QTimerEvent>
 
@@ -35,7 +36,8 @@ Plot::Plot(QWidget *parent) :
 	setAxisScale(QwtPlot::yLeft, -20.0, 20.0);
 	setAxisScale(QwtPlot::xBottom, 0.0, 60);
 	setAutoReplot(true);
-	mTimerId = startTimer(10);
+	qDebug() << "cache:" << canvas()->testPaintAttribute(QwtPlotCanvas::PaintCached);
+	mTimerId = startTimer(25);
 }
 
 Plot::~Plot()
