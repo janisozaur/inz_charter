@@ -5,12 +5,12 @@
 
 PositionData::PositionData()
 {
-	qDebug() << "PositionDataX ctor" << this;
+	qDebug() << "PositionData ctor" << this;
 }
 
 PositionData::~PositionData()
 {
-	qDebug() << "PositionDataX dtor" << this;
+	qDebug() << "PositionData dtor" << this;
 }
 
 QPointF PositionData::sample(size_t i) const
