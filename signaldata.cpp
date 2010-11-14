@@ -65,5 +65,6 @@ void SignalData::fetchSamples()
 void SignalData::start()
 {
 	qDebug() << "starting sampler";
+	mSampler.open();
 	mSampler.start();
 }
