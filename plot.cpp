@@ -37,7 +37,7 @@ Plot::Plot(QWidget *parent) :
 	setAxisScale(QwtPlot::xBottom, 0.0, 60);
 	setAutoReplot(true);
 	qDebug() << "cache:" << canvas()->testPaintAttribute(QwtPlotCanvas::PaintCached);
-	mTimerId = startTimer(25);
+	mTimerId = startTimer(35);
 }
 
 Plot::~Plot()

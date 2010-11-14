@@ -12,8 +12,6 @@ SignalData::SignalData()
 {
 	qDebug() << "SignalData ctor" << this;
 	connect(&mSampler, SIGNAL(dataArrived()), SLOT(fetchSamples()));
-	qDebug() << "starting sampler";
-	start();
 }
 
 SignalData::~SignalData()
@@ -66,5 +64,6 @@ void SignalData::fetchSamples()
 
 void SignalData::start()
 {
+	qDebug() << "starting sampler";
 	mSampler.start();
 }
