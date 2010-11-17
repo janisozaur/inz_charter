@@ -71,6 +71,4 @@ void Plot::timerEvent(QTimerEvent *event)
 void Plot::changeInterval(double newInterval)
 {
 	mInterval = newInterval;
-	float min = qMax(0.0f, mLastTime);
-	setAxisScale(QwtPlot::xBottom, min, mLastTime + mInterval);
 }
