@@ -19,10 +19,13 @@ protected:
 signals:
 
 public slots:
+	void changeInterval(double newInterval);
 
 private:
 	QVector<QwtPlotCurve *> mCurves;
 	int mTimerId;
+	double mInterval;
+	float mLastTime;
 };
 
 #endif // PLOT_H
