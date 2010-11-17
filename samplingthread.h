@@ -18,7 +18,7 @@ public:
 	explicit SamplingThread(QObject *parent = 0);
 	~SamplingThread();
 	QVector<Sample> takeSamples();
-	void open(QString fileName = "/dev/ttyUSB0");
+	void open(QString fileName, QPortSettings::BaudRate baudRate);
 	void close();
 
 protected:

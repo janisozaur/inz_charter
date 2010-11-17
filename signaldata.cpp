@@ -62,9 +62,9 @@ void SignalData::fetchSamples()
 	mSamples << newSamples;
 }
 
-void SignalData::start()
+void SignalData::start(QString portName, QPortSettings::BaudRate baudRate)
 {
 	qDebug() << "starting sampler";
-	mSampler.open();
+	mSampler.open(portName, baudRate);
 	mSampler.start();
 }

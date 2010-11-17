@@ -40,16 +40,17 @@ void SamplingThread::sample(double elapsed)
 	append(readData, elapsed);
 }
 
-void SamplingThread::open(QString fileName)
+void SamplingThread::open(QString fileName, QPortSettings::BaudRate baudRate)
 {
 	qDebug() << "Opening" << fileName << fileName.toLatin1();
 	if (mpSerport == NULL) {
 		QPortSettings settings;
-		settings.setBaudRate(QPortSettings::BAUDR_9600);
+		settings.setBaudRate(baudRate);
 		settings.setDataBits(QPortSettings::DB_8);
 		settings.setFlowControl(QPortSettings::FLOW_OFF);
 		settings.setParity(QPortSettings::PAR_NONE);
 		settings.setStopBits(QPortSettings::STOP_1);
+		qDebug() << "settings:" << settings.toString();
 		mpSerport = new QSerialPort(fileName, settings);
 		if (!mpSerport->open()) {
 			qDebug() << "failed to open serial port" << fileName;
