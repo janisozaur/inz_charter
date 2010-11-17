@@ -60,7 +60,7 @@ void Plot::timerEvent(QTimerEvent *event)
 		QRectF rect = mCurves.first()->data()->boundingRect();
 		if (rect.right() > mLastTime) {
 			float min = qMax(0.0f, mLastTime);
-			setAxisScale(QwtPlot::xBottom, min, mLastTime + mInterval);
+			setAxisScale(QwtPlot::xBottom, min, min + mInterval);
 		}
 		mLastTime = rect.right() - mInterval;
 		updateAxes();
