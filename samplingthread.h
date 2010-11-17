@@ -5,6 +5,9 @@
 #include <QMutexLocker>
 #include <qwt_sampling_thread.h>
 #include <QFile>
+#include <QSerialPort>
+
+using namespace TNX;
 
 #include "sample.h"
 
@@ -30,7 +33,7 @@ private:
 	QVector<Sample> samples;
 	QByteArray mTempData;
 	QMutex mutex;
-	QFile mPort;
+	QSerialPort *mpSerport;
 
 signals:
 

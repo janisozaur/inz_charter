@@ -1,10 +1,13 @@
 #include "samplingthread.h"
 #include <QFile>
+#include <QMessageBox>
+#include <QSerialPort>
 
 #include <QDebug>
 
 SamplingThread::SamplingThread(QObject *parent) :
-	QwtSamplingThread(parent)
+	QwtSamplingThread(parent),
+	mpSerport(NULL)
 {
 	qDebug() << "SamplingThread ctor" << this;
 	this->setInterval(25);
@@ -18,10 +21,11 @@ SamplingThread::~SamplingThread()
 void SamplingThread::sample(double elapsed)
 {
 	//qDebug() << "sampling" << elapsed;
-	qint64 avail = 16;//mPort.bytesAvailable();
+	qint64 avail = 16;//mpSerport->bytesAvailable();
 	QByteArray readData;
 	readData.reserve(avail);
-	qint64 bytesRead = mPort.read(readData.data(), avail);
+	//mpSerport->errorString();
+	qint64 bytesRead = mpSerport->read(readData.data(), avail);
 	//qDebug() << "Read" << bytesRead << "bytes of available" << avail;
 	if (bytesRead != avail) {
 		//qWarning() << "Warning! Read" << bytesRead << "bytes instead of" <<
@@ -34,29 +38,26 @@ void SamplingThread::sample(double elapsed)
 	}
 	readData.resize(bytesRead);
 	append(readData, elapsed);
-	/*Sample mySample;
-	static float prevX = 0;
-	static float prevY = 0;
-	static float prevZ = 0;
-	prevX += (float)(rand() % 10 - 4.5) / 10.0f;
-	prevY += (float)(rand() % 10 - 4.5) / 10.0f;
-	prevZ += (float)(rand() % 10 - 4.5) / 10.0f;
-	mySample.x = prevX;
-	mySample.y = prevY;
-	mySample.z = prevZ;
-	mySample.time = elapsed;
-	append(mySample);*/
 }
 
 void SamplingThread::open(QString fileName)
 {
-	if (!mPort.isOpen()) {
-		qDebug() << "Opening" << fileName;
-		mPort.setFileName(fileName);
-		bool opened = mPort.open(QIODevice::ReadOnly | QIODevice::Unbuffered);
-		qDebug() << "opened:" << opened;
-		if (!opened) {
-			qDebug() << mPort.errorString();
+	qDebug() << "Opening" << fileName << fileName.toLatin1();
+	if (mpSerport == NULL) {
+		QPortSettings settings;
+		settings.setBaudRate(QPortSettings::BAUDR_9600);
+		settings.setDataBits(QPortSettings::DB_8);
+		settings.setFlowControl(QPortSettings::FLOW_OFF);
+		settings.setParity(QPortSettings::PAR_NONE);
+		settings.setStopBits(QPortSettings::STOP_1);
+		mpSerport = new QSerialPort(fileName, settings);
+		if (!mpSerport->open()) {
+			qDebug() << "failed to open serial port" << fileName;
+		} else {
+			qDebug() << "port" << fileName << "successfully opened";
+		}
+		if (!mpSerport->setCommTimeouts(QSerialPort::CtScheme_NonBlockingRead)) {
+			qWarning("Cannot set communications timeout values at port %s.", qPrintable(fileName));
 		}
 	}
 }
