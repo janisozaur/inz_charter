@@ -9,7 +9,9 @@
 
 Plot::Plot(QWidget *parent) :
 	QwtPlot(parent),
-	mTimerId(-1)
+	mTimerId(-1),
+	mInterval(10),
+	mLastTime(0)
 {
 	qDebug() << "Plot ctor" << this;
 	QwtPlotCurve *curveX = new QwtPlotCurve();
@@ -34,7 +36,7 @@ Plot::Plot(QWidget *parent) :
 	curveZ->attach(this);
 	mCurves << curveZ;
 	setAxisScale(QwtPlot::yLeft, -5.0, 2000.0);
-	setAxisScale(QwtPlot::xBottom, 0.0, 60);
+	setAxisScale(QwtPlot::xBottom, 0.0, mInterval);
 	setAutoReplot(true);
 	qDebug() << "cache:" << canvas()->testPaintAttribute(QwtPlotCanvas::PaintCached);
 	mTimerId = startTimer(35);
@@ -55,6 +57,18 @@ void Plot::timerEvent(QTimerEvent *event)
 {
 	if (event->timerId() == mTimerId) {
 		replot();
+		QRectF rect = mCurves.first()->data()->boundingRect();
+		if (rect.right() > mLastTime) {
+			float min = qMax(0.0f, mLastTime);
+			setAxisScale(QwtPlot::xBottom, min, min + mInterval);
+		}
+		mLastTime = rect.right() - mInterval;
+		updateAxes();
 	}
 	QwtPlot::timerEvent(event);
+}
+
+void Plot::changeInterval(double newInterval)
+{
+	mInterval = newInterval;
 }
