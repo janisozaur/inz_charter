@@ -6,7 +6,7 @@
 
 QT       += core gui
 
-TARGET = qwt-chart
+TARGET = charter
 TEMPLATE = app
 
 
