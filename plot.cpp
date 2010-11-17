@@ -48,6 +48,10 @@ Plot::~Plot()
 void Plot::replot()
 {
 	//qDebug() << "replotting";
+	QRectF rect = mCurves.first()->data()->boundingRect();
+	if (rect.right() > 60) {
+		axisScaleDiv(QwtPlot::xBottom)->setInterval(rect.right() - 60, rect.right());
+	}
 	QwtPlot::replot();
 }
 
