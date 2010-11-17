@@ -34,4 +34,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-LIBS += -lqwt
+LIBS += -lqwt -lQtSerialPort -L/usr/local/qserialport/lib/
+
+INCLUDEPATH += /usr/local/qserialport/include/QtSerialPort
