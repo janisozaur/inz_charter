@@ -5,6 +5,7 @@
 #include <QRectF>
 #include <QVector>
 #include <QMutex>
+#include <QSerialPort>
 
 #include "sample.h"
 #include "samplingthread.h"
@@ -32,7 +33,7 @@ private:
 	SamplingThread mSampler;
 
 public slots:
-	void start();
+	void start(QString portName, QPortSettings::BaudRate baudRate);
 };
 
 #endif // SIGNALDATA_H
