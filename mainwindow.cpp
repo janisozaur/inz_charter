@@ -5,13 +5,10 @@
 
 #include <QSerialPort>
 
-Q_DECLARE_METATYPE(QPortSettings::BaudRate)
-
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
 {
-	qRegisterMetaType<TNX::QPortSettings::BaudRate>("QPortSettings::BaudRate");
 	ui->setupUi(this);
 	mPlot = new Plot(this);
 	ui->horizontalLayout->addWidget(mPlot, 10);
