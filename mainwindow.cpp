@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "positionplot.h"
+#include "distanceplot.h"
 #include "signaldata.h"
 
 #include <QSerialPort>
@@ -11,7 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 	ui->setupUi(this);
 	mPositionPlot = new PositionPlot(this);
+	mDistancePlot = new DistancePlot(this);
 	ui->horizontalLayout->addWidget(mPositionPlot, 10);
+	ui->horizontalLayout->addWidget(mDistancePlot, 10);
 
 	// use map to sort values
 	QMap<QString, QPortSettings::BaudRate> map;
