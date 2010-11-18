@@ -35,7 +35,7 @@ DistancePlot::DistancePlot(QWidget *parent) :
 	curveZ->setData(new DistanceDataUp());
 	curveZ->attach(this);
 	mCurves << curveZ;
-	setAxisScale(QwtPlot::yLeft, -100.0, 100.0);
+	setAxisScale(QwtPlot::yLeft, -5.0, 100.0);
 	setAxisScale(QwtPlot::xBottom, 0.0, mInterval);
 	setAutoReplot(true);
 	qDebug() << "cache:" << canvas()->testPaintAttribute(QwtPlotCanvas::PaintCached);
