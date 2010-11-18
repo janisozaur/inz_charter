@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout"/>
+     <layout class="QVBoxLayout" name="verticalPlotLayout"/>
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
