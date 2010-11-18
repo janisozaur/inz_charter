@@ -46,7 +46,7 @@ void SignalData::fetchSamples()
 	QVector<Sample> newSamples = mSampler.takeSamples();
 	for (int i = 0; i < newSamples.count(); i++) {
 		const Sample mySample = newSamples.at(i);
-		qreal y = qMax(mySample.x, qMax(mySample.y, mySample.z));
+		qreal y = qMax(mySample.left, qMax(mySample.right, mySample.up));
 		if (mBoundingRect.isNull()) {
 			mBoundingRect.setRect(mySample.time, y, 0.0, 0.0);
 		} else {

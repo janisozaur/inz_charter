@@ -3,6 +3,7 @@
 
 struct Sample
 {
+	float right, up, left;
 	float x, y, z;
 	float time;
 };

@@ -35,7 +35,7 @@ Plot::Plot(QWidget *parent) :
 	curveZ->setData(new PositionDataZ());
 	curveZ->attach(this);
 	mCurves << curveZ;
-	setAxisScale(QwtPlot::yLeft, -5.0, 2000.0);
+	setAxisScale(QwtPlot::yLeft, -100.0, 100.0);
 	setAxisScale(QwtPlot::xBottom, 0.0, mInterval);
 	setAutoReplot(true);
 	qDebug() << "cache:" << canvas()->testPaintAttribute(QwtPlotCanvas::PaintCached);

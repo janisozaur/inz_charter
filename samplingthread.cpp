@@ -2,6 +2,7 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QSerialPort>
+#include <cmath>
 
 #include <QDebug>
 
@@ -80,14 +81,38 @@ void SamplingThread::append(const QByteArray &data, double elapsed)
 		mTempData.remove(0, 1);
 	}
 	while (mTempData.size() >= 8) {
+		// 8MHz with prescaler clk/8, premultiplied by ovfCounter
+		float up = 256 * (unsigned char)mTempData.at(2) + (unsigned char)mTempData.at(1);
+		float right = 256 * (unsigned char)mTempData.at(4) + (unsigned char)mTempData.at(3);
+		float left = 256 * (unsigned char)mTempData.at(6) + (unsigned char)mTempData.at(5);
 		Sample mySample;
-		mySample.x = 256 * (unsigned char)mTempData.at(2) + (unsigned char)mTempData.at(1);
-		mySample.y = 256 * (unsigned char)mTempData.at(4) + (unsigned char)mTempData.at(3);
-		mySample.z = 256 * (unsigned char)mTempData.at(6) + (unsigned char)mTempData.at(5);
+
+		// multiplied by speed of sound in air and divided by 100cm/m
+		// results in distance in cm from receiver
+		mySample.left = left * 333 / 10000;
+		mySample.right = right * 333 / 10000;
+		mySample.up = up * 333 / 10000;
 		mySample.time = elapsed;
+
+		// distance on x axis of right receiver
+		float d = 33;
+		// distance on x axis of up receiver
+		float i = 16.5f;
+		// distance on y axis of 2nd receiver (sqrt(3)/2 * d)
+		float j = 28.5788383f;
+
+		float x = (pow(mySample.left, 2) - pow(mySample.right, 2) + pow(d, 2)) / (2 * d);
+		float y = ((pow(mySample.left, 2) - pow(mySample.up, 2) + pow(i, 2) + pow(j, 2)) / (2 * j)) - ((i * x) / j);
+		float z = sqrt(pow(mySample.left, 2) - pow(x, 2) - pow(y, 2));
+
+		mySample.x = x;
+		mySample.y = y;
+		mySample.z = z;
+
 		//qDebug() << mTempData.left(8).toHex();
-		//qDebug() << "Sample(" << mySample.x << "," << mySample.y << "," <<
-		//			mySample.z << "," << mySample.time << ")";
+		//qDebug() << "Sample(" << mySample.left << "," << mySample.right << "," <<
+		//			mySample.up << "," << mySample.time << ")";
+
 		samples << mySample;
 		mTempData.remove(0, 8);
 	}
