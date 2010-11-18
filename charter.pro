@@ -22,7 +22,8 @@ SOURCES += main.cpp\
 	distancedataup.cpp \
 	distancedataright.cpp \
 	distancedataleft.cpp \
-    positionplot.cpp
+    positionplot.cpp \
+    distanceplot.cpp
 
 HEADERS  += mainwindow.h \
     samplingthread.h \
@@ -36,7 +37,8 @@ HEADERS  += mainwindow.h \
 	distancedataup.h \
 	distancedataright.h \
 	distancedataleft.h \
-    positionplot.h
+    positionplot.h \
+    distanceplot.h
 
 FORMS    += mainwindow.ui
 

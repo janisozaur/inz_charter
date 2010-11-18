@@ -3,7 +3,7 @@
 
 #include "sampledata.h"
 
-class DistanceDataLeft
+class DistanceDataLeft : public SampleData
 {
 public:
     DistanceDataLeft();
