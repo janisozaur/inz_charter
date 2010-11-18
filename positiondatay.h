@@ -1,9 +1,9 @@
 #ifndef POSITIONDATAY_H
 #define POSITIONDATAY_H
 
-#include "positiondata.h"
+#include "sampledata.h"
 
-class PositionDataY : public PositionData
+class PositionDataY : public SampleData
 {
 public:
 	PositionDataY();

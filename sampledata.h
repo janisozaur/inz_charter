@@ -5,11 +5,11 @@
 #include <QMutex>
 #include "sample.h"
 
-class PositionData : public QwtSeriesData<QPointF>
+class SampleData : public QwtSeriesData<QPointF>
 {
 public:
-	PositionData();
-	~PositionData();
+	SampleData();
+	~SampleData();
 
 	virtual QPointF sample(size_t i) const;
 	virtual size_t size() const;

@@ -1,31 +1,31 @@
-#include "positiondatax.h"
+#include "sampledata.h"
 #include "signaldata.h"
 #include <QMutexLocker>
 #include <QDebug>
 
-PositionData::PositionData()
+SampleData::SampleData()
 {
 	qDebug() << "PositionData ctor" << this;
 }
 
-PositionData::~PositionData()
+SampleData::~SampleData()
 {
 	qDebug() << "PositionData dtor" << this;
 }
 
-QPointF PositionData::sample(size_t i) const
+QPointF SampleData::sample(size_t i) const
 {
 	//qDebug() << "asking for sample" << i << "out of" << size();
 	const Sample mySample = SignalData::instance().value(i);
 	return pointFromSample(mySample);
 }
 
-size_t PositionData::size() const
+size_t SampleData::size() const
 {
 	return SignalData::instance().size();
 }
 
-QRectF PositionData::boundingRect() const
+QRectF SampleData::boundingRect() const
 {
 	return SignalData::instance().boundingRect();
 }

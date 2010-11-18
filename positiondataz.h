@@ -1,9 +1,9 @@
 #ifndef POSITIONDATAZ_H
 #define POSITIONDATAZ_H
 
-#include "positiondata.h"
+#include "sampledata.h"
 
-class PositionDataZ : public PositionData
+class PositionDataZ : public SampleData
 {
 public:
     PositionDataZ();
