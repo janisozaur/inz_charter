@@ -5,12 +5,12 @@
 
 class QwtPlotCurve;
 
-class Plot : public QwtPlot
+class PositionPlot : public QwtPlot
 {
 	Q_OBJECT
 public:
-	explicit Plot(QWidget *parent = 0);
-	~Plot();
+	explicit PositionPlot(QWidget *parent = 0);
+	~PositionPlot();
 	virtual void replot();
 
 protected:

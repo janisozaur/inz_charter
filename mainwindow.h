@@ -7,7 +7,7 @@ namespace Ui {
 	class MainWindow;
 }
 
-class Plot;
+class PositionPlot;
 
 class MainWindow : public QMainWindow
 {
@@ -22,7 +22,7 @@ private slots:
 
 private:
 	Ui::MainWindow *ui;
-	Plot *mPlot;
+	PositionPlot *mPositionPlot;
 };
 
 #endif // MAINWINDOW_H

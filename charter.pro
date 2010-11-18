@@ -12,17 +12,16 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    plot.cpp \
     samplingthread.cpp \
     curvedata.cpp \
     signaldata.cpp \
     positiondatax.cpp \
     positiondatay.cpp \
     positiondataz.cpp \
-    sampledata.cpp
+	sampledata.cpp \
+    positionplot.cpp
 
 HEADERS  += mainwindow.h \
-    plot.h \
     samplingthread.h \
     curvedata.h \
     sample.h \
@@ -30,7 +29,8 @@ HEADERS  += mainwindow.h \
     positiondatax.h \
     positiondatay.h \
     positiondataz.h \
-    sampledata.h
+	sampledata.h \
+    positionplot.h
 
 FORMS    += mainwindow.ui
 

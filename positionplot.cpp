@@ -1,4 +1,4 @@
-#include "plot.h"
+#include "positionplot.h"
 #include "positiondatax.h"
 #include "positiondatay.h"
 #include "positiondataz.h"
@@ -7,7 +7,7 @@
 #include <QDebug>
 #include <QTimerEvent>
 
-Plot::Plot(QWidget *parent) :
+PositionPlot::PositionPlot(QWidget *parent) :
 	QwtPlot(parent),
 	mTimerId(-1),
 	mInterval(10),
@@ -42,18 +42,18 @@ Plot::Plot(QWidget *parent) :
 	mTimerId = startTimer(35);
 }
 
-Plot::~Plot()
+PositionPlot::~PositionPlot()
 {
 	qDebug() << "Plot dtor" << this;
 }
 
-void Plot::replot()
+void PositionPlot::replot()
 {
 	//qDebug() << "replotting";
 	QwtPlot::replot();
 }
 
-void Plot::timerEvent(QTimerEvent *event)
+void PositionPlot::timerEvent(QTimerEvent *event)
 {
 	if (event->timerId() == mTimerId) {
 		replot();
@@ -68,7 +68,7 @@ void Plot::timerEvent(QTimerEvent *event)
 	QwtPlot::timerEvent(event);
 }
 
-void Plot::changeInterval(double newInterval)
+void PositionPlot::changeInterval(double newInterval)
 {
 	mInterval = newInterval;
 }
