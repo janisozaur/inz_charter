@@ -19,6 +19,9 @@ SOURCES += main.cpp\
     positiondatay.cpp \
     positiondataz.cpp \
 	sampledata.cpp \
+	distancedataup.cpp \
+	distancedataright.cpp \
+	distancedataleft.cpp \
     positionplot.cpp
 
 HEADERS  += mainwindow.h \
@@ -30,6 +33,9 @@ HEADERS  += mainwindow.h \
     positiondatay.h \
     positiondataz.h \
 	sampledata.h \
+	distancedataup.h \
+	distancedataright.h \
+	distancedataleft.h \
     positionplot.h
 
 FORMS    += mainwindow.ui
