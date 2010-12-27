@@ -75,12 +75,15 @@ void SamplingThread::append(const QByteArray &data, double elapsed)
 {
 	QMutexLocker locker(&mutex);
 	mTempData.append(data);
-	// skip any leading malformed data
-	while (mTempData.size() >= 8 && mTempData.at(0) != 0 && mTempData.at(7) != (char)0xFF) {
-		qDebug() << "****************** removing data";
-		mTempData.remove(0, 1);
-	}
 	while (mTempData.size() >= 8) {
+		// skip any leading malformed data
+		while (mTempData.size() >= 8 && (mTempData.at(0) != YELLOW || mTempData.at(7) != (char)0xFF)) {
+			//qDebug() << "****************** removing data";
+			mTempData.remove(0, 1);
+		}
+		if (mTempData.size() < 8) {
+			break;
+		}
 		// 8MHz with prescaler clk/8, premultiplied by ovfCounter
 		float up = 256 * (unsigned char)mTempData.at(2) + (unsigned char)mTempData.at(1);
 		float right = 256 * (unsigned char)mTempData.at(4) + (unsigned char)mTempData.at(3);
