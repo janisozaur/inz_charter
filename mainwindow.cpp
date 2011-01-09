@@ -13,8 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->setupUi(this);
 	mPositionPlot = new PositionPlot(this);
 	mDistancePlot = new DistancePlot(this);
-	ui->verticalPlotLayout->addWidget(mPositionPlot, 10);
-	ui->verticalPlotLayout->addWidget(mDistancePlot, 10);
+	ui->positionHorizontalLayout->addWidget(mPositionPlot, 10);
+	ui->distanceHorizontalLayout->addWidget(mDistancePlot, 10);
 
 	// use map to sort values
 	QMap<QString, QPortSettings::BaudRate> map;
@@ -66,6 +66,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+	qDebug() << "MainWindow dtor";
 	delete ui;
 }
 

@@ -21,7 +21,7 @@ SamplingThread::~SamplingThread()
 
 void SamplingThread::sample(double elapsed)
 {
-	//qDebug() << "sampling" << elapsed;
+	qDebug() << "sampling" << elapsed;
 	qint64 avail = 16;//mpSerport->bytesAvailable();
 	QByteArray readData;
 	readData.reserve(avail);

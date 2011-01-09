@@ -4,6 +4,7 @@
 #include "distancedataup.h"
 #include <qwt_plot_curve.h>
 #include <qwt_plot_canvas.h>
+#include <qwt_legend.h>
 #include <QDebug>
 #include <QTimerEvent>
 
@@ -14,27 +15,28 @@ DistancePlot::DistancePlot(QWidget *parent) :
 	mLastTime(0)
 {
 	qDebug() << "DistancePlot ctor" << this;
-	QwtPlotCurve *curveX = new QwtPlotCurve();
+	insertLegend(new QwtLegend(), QwtPlot::BottomLegend);
+	QwtPlotCurve *curveX = new QwtPlotCurve("1");
 	curveX->setStyle(QwtPlotCurve::Lines);
 	curveX->setPen(QPen(Qt::green));
 	//curveX->setRenderHint(QwtPlotItem::RenderAntialiased, true);
 	curveX->setData(new DistanceDataLeft());
 	curveX->attach(this);
 	mCurves << curveX;
-	QwtPlotCurve *curveY = new QwtPlotCurve();
-	curveY->setStyle(QwtPlotCurve::Lines);
-	curveY->setPen(QPen(Qt::red));
-	//curveY->setRenderHint(QwtPlotItem::RenderAntialiased, true);
-	curveY->setData(new DistanceDataRight());
-	curveY->attach(this);
-	mCurves << curveY;
-	QwtPlotCurve *curveZ = new QwtPlotCurve();
+	QwtPlotCurve *curveZ = new QwtPlotCurve("2");
 	curveZ->setStyle(QwtPlotCurve::Lines);
 	curveZ->setPen(QPen(Qt::blue));
 	//curveZ->setRenderHint(QwtPlotItem::RenderAntialiased, true);
 	curveZ->setData(new DistanceDataUp());
 	curveZ->attach(this);
 	mCurves << curveZ;
+	QwtPlotCurve *curveY = new QwtPlotCurve("3");
+	curveY->setStyle(QwtPlotCurve::Lines);
+	curveY->setPen(QPen(Qt::red));
+	//curveY->setRenderHint(QwtPlotItem::RenderAntialiased, true);
+	curveY->setData(new DistanceDataRight());
+	curveY->attach(this);
+	mCurves << curveY;
 	setAxisScale(QwtPlot::yLeft, -5.0, 100.0);
 	setAxisScale(QwtPlot::xBottom, 0.0, mInterval);
 	setAutoReplot(true);

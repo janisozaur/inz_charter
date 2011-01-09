@@ -4,6 +4,7 @@
 #include "positiondataz.h"
 #include <qwt_plot_curve.h>
 #include <qwt_plot_canvas.h>
+#include <qwt_legend.h>
 #include <QDebug>
 #include <QTimerEvent>
 
@@ -14,28 +15,29 @@ PositionPlot::PositionPlot(QWidget *parent) :
 	mLastTime(0)
 {
 	qDebug() << "Plot ctor" << this;
-	QwtPlotCurve *curveX = new QwtPlotCurve();
+	insertLegend(new QwtLegend(), QwtPlot::BottomLegend);
+	QwtPlotCurve *curveX = new QwtPlotCurve("x");
 	curveX->setStyle(QwtPlotCurve::Lines);
 	curveX->setPen(QPen(Qt::green));
 	//curveX->setRenderHint(QwtPlotItem::RenderAntialiased, true);
 	curveX->setData(new PositionDataX());
 	curveX->attach(this);
 	mCurves << curveX;
-	QwtPlotCurve *curveY = new QwtPlotCurve();
+	QwtPlotCurve *curveY = new QwtPlotCurve("y");
 	curveY->setStyle(QwtPlotCurve::Lines);
 	curveY->setPen(QPen(Qt::red));
 	//curveY->setRenderHint(QwtPlotItem::RenderAntialiased, true);
 	curveY->setData(new PositionDataY());
 	curveY->attach(this);
 	mCurves << curveY;
-	QwtPlotCurve *curveZ = new QwtPlotCurve();
+	QwtPlotCurve *curveZ = new QwtPlotCurve("z");
 	curveZ->setStyle(QwtPlotCurve::Lines);
 	curveZ->setPen(QPen(Qt::blue));
 	//curveZ->setRenderHint(QwtPlotItem::RenderAntialiased, true);
 	curveZ->setData(new PositionDataZ());
 	curveZ->attach(this);
 	mCurves << curveZ;
-	setAxisScale(QwtPlot::yLeft, -100.0, 100.0);
+	setAxisScale(QwtPlot::yLeft, 0.0, 50.0);
 	setAxisScale(QwtPlot::xBottom, 0.0, mInterval);
 	setAutoReplot(true);
 	qDebug() << "cache:" << canvas()->testPaintAttribute(QwtPlotCanvas::PaintCached);
