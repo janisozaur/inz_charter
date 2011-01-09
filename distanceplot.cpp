@@ -16,6 +16,8 @@ DistancePlot::DistancePlot(QWidget *parent) :
 {
 	qDebug() << "DistancePlot ctor" << this;
 	insertLegend(new QwtLegend(), QwtPlot::BottomLegend);
+	setAxisTitle(xBottom, "t[s]");
+	setAxisTitle(yLeft, "x");
 	QwtPlotCurve *curveX = new QwtPlotCurve("1");
 	curveX->setStyle(QwtPlotCurve::Lines);
 	curveX->setPen(QPen(Qt::green));

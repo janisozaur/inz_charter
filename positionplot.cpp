@@ -16,6 +16,8 @@ PositionPlot::PositionPlot(QWidget *parent) :
 {
 	qDebug() << "Plot ctor" << this;
 	insertLegend(new QwtLegend(), QwtPlot::BottomLegend);
+	setAxisTitle(xBottom, "t[s]");
+	setAxisTitle(yLeft, "x[cm]");
 	QwtPlotCurve *curveX = new QwtPlotCurve("x");
 	curveX->setStyle(QwtPlotCurve::Lines);
 	curveX->setPen(QPen(Qt::green));
