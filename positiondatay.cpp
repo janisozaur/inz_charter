@@ -1,6 +1,7 @@
 #include "positiondatay.h"
 
-PositionDataY::PositionDataY()
+PositionDataY::PositionDataY(Marker which) :
+	SampleData(which)
 {
 }
 

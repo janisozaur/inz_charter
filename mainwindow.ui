@@ -53,6 +53,9 @@
         <item>
          <widget class="QComboBox" name="portBaudRateComboBox"/>
         </item>
+        <item>
+         <widget class="QComboBox" name="markerSelectComboBox"/>
+        </item>
        </layout>
       </item>
       <item>

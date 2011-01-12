@@ -17,9 +17,9 @@ class SignalData : QObject
 public:
 	static SignalData &instance();
 
-	int size() const;
-	Sample value(int index) const;
-	QRectF boundingRect() const;
+	int size(Marker which) const;
+	Sample value(Marker which, int index) const;
+	QRectF boundingRect(Marker which) const;
 	void wait();
 
 public slots:
@@ -28,8 +28,8 @@ public slots:
 private:
 	SignalData();
 	~SignalData();
-	QVector<Sample> mSamples;
-	QRectF mBoundingRect;
+	QVector<Sample> mBlueSamples, mYellowSamples;
+	QRectF mBlueBoundingRect, mYellowBoundingRect;
 	mutable QMutex mMutex;
 	SamplingThread mSampler;
 

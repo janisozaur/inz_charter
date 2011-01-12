@@ -20,23 +20,55 @@ SignalData::~SignalData()
 	// TODO: stop sampling thread
 }
 
-Sample SignalData::value(int index) const
+Sample SignalData::value(Marker which, int index) const
 {
 	QMutexLocker locker(&mMutex);
 	//qDebug() << "asking for value of sample" << index;
-	return mSamples[index];
+	//return mSamples[index];
+	switch (which) {
+		case Yellow:
+			return mYellowSamples.at(index);
+			break;
+		case Blue:
+			return mBlueSamples.at(index);
+			break;
+		default:
+			qFatal("SignalData::value: there is no marker %d.\n", which);
+	}
+	return Sample(); // never reached, just shut up compile warnings
 }
 
-int SignalData::size() const
+int SignalData::size(Marker which) const
 {
 	QMutexLocker locker(&mMutex);
-	return mSamples.size();
+	switch (which) {
+		case Yellow:
+			return mYellowSamples.size();
+			break;
+		case Blue:
+			return mBlueSamples.size();
+			break;
+		default:
+			qFatal("SignalData::size: there is no marker %d.\n", which);
+	}
+	return 0; // never reached, just shut up some warnings
 }
 
-QRectF SignalData::boundingRect() const
+QRectF SignalData::boundingRect(Marker which) const
 {
 	QMutexLocker locker(&mMutex);
-	return mBoundingRect;
+	QRectF result;
+	switch (which) {
+		case Yellow:
+			result = mYellowBoundingRect;
+			break;
+		case Blue:
+			result = mBlueBoundingRect;
+			break;
+		default:
+			qFatal("SignalData::boundingRect: there is no marker %d.\n", which);
+	}
+	return result;
 }
 
 void SignalData::fetchSamples()
@@ -47,19 +79,32 @@ void SignalData::fetchSamples()
 	for (int i = 0; i < newSamples.count(); i++) {
 		const Sample mySample = newSamples.at(i);
 		qreal y = qMax(mySample.left, qMax(mySample.right, mySample.up));
-		if (mBoundingRect.isNull()) {
-			mBoundingRect.setRect(mySample.time, y, 0.0, 0.0);
+		QRectF *br;
+		switch (mySample.marker) {
+			case Yellow:
+				br = &mYellowBoundingRect;
+				mYellowSamples << mySample;
+				break;
+			case Blue:
+				br = &mBlueBoundingRect;
+				mBlueSamples << mySample;
+				break;
+			default:
+				br = 0;
+				qFatal("SignalData::fetchSamples: there is no marker %d.\n", mySample.marker);
+		}
+		if (br->isNull()) {
+			br->setRect(mySample.time, y, 0.0, 0.0);
 		} else {
-			mBoundingRect.setRight(mySample.time);
-			if (y > mBoundingRect.bottom()) {
-				mBoundingRect.setBottom(y);
+			br->setRight(mySample.time);
+			if (y > br->bottom()) {
+				br->setBottom(y);
 			}
-			if (y < mBoundingRect.top()) {
-				mBoundingRect.setTop(y);
+			if (y < br->top()) {
+				br->setTop(y);
 			}
 		}
 	}
-	mSamples << newSamples;
 }
 
 void SignalData::start(QString portName, QPortSettings::BaudRate baudRate)

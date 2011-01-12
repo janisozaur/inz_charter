@@ -69,6 +69,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->portBaudRateComboBox->setCurrentIndex(
 				ui->portBaudRateComboBox->findText("BAUDR_9600"));
 
+	ui->markerSelectComboBox->addItem("BLUE",   BLUE);
+	ui->markerSelectComboBox->addItem("YELLOW", YELLOW);
+
 #ifdef Q_OS_LINUX
 	ui->portNameLineEdit->setText("/dev/ttyUSB0");
 #endif

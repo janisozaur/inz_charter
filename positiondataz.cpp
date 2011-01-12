@@ -1,6 +1,7 @@
 #include "positiondataz.h"
 
-PositionDataZ::PositionDataZ()
+PositionDataZ::PositionDataZ(Marker which) :
+	SampleData(which)
 {
 }
 

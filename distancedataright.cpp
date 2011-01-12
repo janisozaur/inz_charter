@@ -1,6 +1,7 @@
 #include "distancedataright.h"
 
-DistanceDataRight::DistanceDataRight()
+DistanceDataRight::DistanceDataRight(Marker which) :
+	SampleData(which)
 {
 }
 

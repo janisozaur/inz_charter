@@ -8,7 +8,7 @@
 class SampleData : public QwtSeriesData<QPointF>
 {
 public:
-	SampleData();
+	SampleData(Marker which);
 	~SampleData();
 
 	virtual QPointF sample(size_t i) const;
@@ -23,6 +23,7 @@ private:
 	mutable QMutex mMutex;
 	QVector<QPointF> mSamples;
 	QRectF mBoundingRect;
+	Marker mWhich;
 };
 
 #endif // POSITIONDATA_H

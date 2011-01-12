@@ -21,7 +21,7 @@ SamplingThread::~SamplingThread()
 
 void SamplingThread::sample(double elapsed)
 {
-	qDebug() << "sampling" << elapsed;
+	//qDebug() << "sampling" << elapsed;
 	qint64 avail = 16;//mpSerport->bytesAvailable();
 	QByteArray readData;
 	readData.reserve(avail);
@@ -77,7 +77,7 @@ void SamplingThread::append(const QByteArray &data, double elapsed)
 	mTempData.append(data);
 	while (mTempData.size() >= 8) {
 		// skip any leading malformed data
-		while (mTempData.size() >= 8 && (mTempData.at(0) != YELLOW || mTempData.at(7) != (char)0xFF)) {
+		while (mTempData.size() >= 8 && (!(mTempData.at(0) == YELLOW || mTempData.at(0) == BLUE) || mTempData.at(7) != (char)0xFF)) {
 			//qDebug() << "****************** removing data";
 			mTempData.remove(0, 1);
 		}
@@ -90,6 +90,11 @@ void SamplingThread::append(const QByteArray &data, double elapsed)
 		float left = 256 * (unsigned char)mTempData.at(6) + (unsigned char)mTempData.at(5);
 		Sample mySample;
 
+		if (mTempData.at(0) == BLUE) {
+			mySample.marker = Blue;
+		} else {
+			mySample.marker = Yellow;
+		}
 		// multiplied by speed of sound in air and divided by 100cm/m
 		// results in distance in cm from receiver
 		mySample.left = left * 333 / 10000;
@@ -112,7 +117,7 @@ void SamplingThread::append(const QByteArray &data, double elapsed)
 		mySample.y = y;
 		mySample.z = z;
 
-		//qDebug() << mTempData.left(8).toHex();
+		//qDebug() << mySample.marker << mTempData.left(8).toHex();
 		//qDebug() << "Sample(" << mySample.left << "," << mySample.right << "," <<
 		//			mySample.up << "," << mySample.time << ")";
 

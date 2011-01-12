@@ -1,6 +1,7 @@
 #include "distancedataleft.h"
 
-DistanceDataLeft::DistanceDataLeft()
+DistanceDataLeft::DistanceDataLeft(Marker which) :
+	SampleData(which)
 {
 }
 

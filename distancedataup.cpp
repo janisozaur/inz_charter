@@ -1,6 +1,7 @@
 #include "distancedataup.h"
 
-DistanceDataUp::DistanceDataUp()
+DistanceDataUp::DistanceDataUp(Marker which) :
+	SampleData(which)
 {
 }
 
