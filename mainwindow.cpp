@@ -17,9 +17,14 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->positionHorizontalLayout->addWidget(mPositionPlot, 10);
 	ui->distanceHorizontalLayout->addWidget(mDistancePlot, 10);
 	mPositionPanner = new QwtPlotPanner(mPositionPlot->canvas());
-	mPositionPanner->setMouseButton(Qt::MidButton);
+	//mPositionPanner->setMouseButton(Qt::MidButton);
 	mDistancePanner = new QwtPlotPanner(mDistancePlot->canvas());
-	mDistancePanner->setMouseButton(Qt::MidButton);
+	//mDistancePanner->setMouseButton(Qt::MidButton);
+
+	//connect(mDistancePanner, SIGNAL(moved(int,int)), this, SLOT(movedSlot(int,int)));
+	//connect(mDistancePanner, SIGNAL(panned(int,int)), this, SLOT(pannedSlot(int,int)));
+	connect(mDistancePlot, SIGNAL(pan(int,int)), mDistancePanner, SIGNAL(panned(int,int)));
+	connect(mPositionPlot, SIGNAL(pan(int,int)), mPositionPanner, SIGNAL(panned(int,int)));
 
 	// use map to sort values
 	QMap<QString, QPortSettings::BaudRate> map;
@@ -75,6 +80,16 @@ MainWindow::~MainWindow()
 	SignalData::instance().wait();
 	qDebug() << "MainWindow dtor";
 	delete ui;
+}
+
+void MainWindow::pannedSlot(int x, int y)
+{
+	qDebug() << "panned(" << x << "," << y << ")";
+}
+
+void MainWindow::movedSlot(int x, int y)
+{
+	qDebug() << "moved(" << x << "," << y << ")";
 }
 
 void MainWindow::on_startButton_clicked()

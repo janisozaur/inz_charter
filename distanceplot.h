@@ -17,6 +17,7 @@ protected:
 	virtual void timerEvent(QTimerEvent *event);
 
 signals:
+	void pan(int, int);
 
 public slots:
 	void changeInterval(double newInterval);
@@ -25,7 +26,8 @@ private:
 	QVector<QwtPlotCurve *> mCurves;
 	int mTimerId;
 	double mInterval;
-	float mLastTime;
+	float mPanX;
+	float mPrevRect;
 };
 
 #endif // DISTANCEPLOT_H

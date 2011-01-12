@@ -21,6 +21,8 @@ public:
 
 private slots:
 	void on_startButton_clicked();
+	void pannedSlot(int, int);
+	void movedSlot(int, int);
 
 private:
 	Ui::MainWindow *ui;

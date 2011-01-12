@@ -11,9 +11,10 @@
 DistancePlot::DistancePlot(QWidget *parent) :
 	QwtPlot(parent),
 	mTimerId(-1),
-	mInterval(10),
-	mLastTime(0)
+	mInterval(10)
 {
+	mPanX = 0;
+	mPrevRect = 0;
 	qDebug() << "DistancePlot ctor" << this;
 	insertLegend(new QwtLegend(), QwtPlot::BottomLegend);
 	setAxisTitle(xBottom, "t[s]");
@@ -62,12 +63,14 @@ void DistancePlot::timerEvent(QTimerEvent *event)
 	if (event->timerId() == mTimerId) {
 		replot();
 		QRectF rect = mCurves.first()->data()->boundingRect();
-		if (rect.right() > mLastTime) {
-			float min = qMax(0.0f, mLastTime);
-			setAxisScale(QwtPlot::xBottom, min, min + mInterval);
-		}
-		mLastTime = rect.right() - mInterval;
-		updateAxes();
+		float min = qMax(0.0, rect.right() - mInterval);
+		double pps = (canvas()->size().width() - 13) / mInterval;
+		float td = min - mPrevRect;
+		mPanX -= td * pps;
+		int panX = mPanX;
+		mPanX -= panX;
+		emit pan(panX, 0);
+		mPrevRect = min;
 	}
 	QwtPlot::timerEvent(event);
 }
