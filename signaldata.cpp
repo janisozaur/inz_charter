@@ -68,3 +68,13 @@ void SignalData::start(QString portName, QPortSettings::BaudRate baudRate)
 	mSampler.open(portName, baudRate);
 	mSampler.start();
 }
+
+void SignalData::stop()
+{
+	mSampler.stop();
+}
+
+void SignalData::wait()
+{
+	mSampler.wait();
+}

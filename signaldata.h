@@ -20,6 +20,7 @@ public:
 	int size() const;
 	Sample value(int index) const;
 	QRectF boundingRect() const;
+	void wait();
 
 public slots:
 	void fetchSamples();
@@ -34,6 +35,7 @@ private:
 
 public slots:
 	void start(QString portName, QPortSettings::BaudRate baudRate);
+	void stop();
 };
 
 #endif // SIGNALDATA_H

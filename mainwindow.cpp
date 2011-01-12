@@ -71,6 +71,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+	SignalData::instance().stop();
+	SignalData::instance().wait();
 	qDebug() << "MainWindow dtor";
 	delete ui;
 }
