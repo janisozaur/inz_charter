@@ -11,9 +11,6 @@ using namespace TNX;
 
 #include "sample.h"
 
-#define BLUE 1
-#define YELLOW 2
-
 class SamplingThread : public QwtSamplingThread
 {
 	Q_OBJECT

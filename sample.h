@@ -1,7 +1,7 @@
 #ifndef SAMPLE_H
 #define SAMPLE_H
 
-enum Marker {Blue, Yellow};
+enum Marker {Blue = 1, Yellow = 2};
 
 struct Sample
 {
