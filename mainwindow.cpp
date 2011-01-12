@@ -3,6 +3,7 @@
 #include "positionplot.h"
 #include "distanceplot.h"
 #include "signaldata.h"
+#include "sample.h"
 
 #include <QSerialPort>
 #include <qwt_plot_panner.h>
@@ -69,8 +70,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->portBaudRateComboBox->setCurrentIndex(
 				ui->portBaudRateComboBox->findText("BAUDR_9600"));
 
-	ui->markerSelectComboBox->addItem("BLUE",   Blue);
-	ui->markerSelectComboBox->addItem("YELLOW", Yellow);
+	ui->markerSelectComboBox->addItem("Blue",   Blue);
+	ui->markerSelectComboBox->addItem("Yellow", Yellow);
+	ui->markerSelectComboBox->setCurrentIndex(ui->markerSelectComboBox->findText("Yellow"));
 
 #ifdef Q_OS_LINUX
 	ui->portNameLineEdit->setText("/dev/ttyUSB0");
@@ -101,4 +103,10 @@ void MainWindow::on_startButton_clicked()
 				ui->portBaudRateComboBox->currentIndex());
 	QPortSettings::BaudRate baud = (QPortSettings::BaudRate)baudVariant.toInt();
 	SignalData::instance().start(ui->portNameLineEdit->text(), baud);
+}
+
+void MainWindow::on_markerSelectComboBox_currentIndexChanged(int index)
+{
+	mPositionPlot->setMarker((Marker)ui->markerSelectComboBox->itemData(index).toInt());
+	mDistancePlot->setMarker((Marker)ui->markerSelectComboBox->itemData(index).toInt());
 }

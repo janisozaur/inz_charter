@@ -17,30 +17,9 @@ PositionPlot::PositionPlot(QWidget *parent) :
 	insertLegend(new QwtLegend(), QwtPlot::BottomLegend);
 	setAxisTitle(xBottom, "t[s]");
 	setAxisTitle(yLeft, "x[cm]");
-	QwtPlotCurve *curveX = new QwtPlotCurve("x");
-	curveX->setStyle(QwtPlotCurve::Lines);
-	curveX->setPen(QPen(Qt::green));
-	//curveX->setRenderHint(QwtPlotItem::RenderAntialiased, true);
-	curveX->setData(new PositionDataX(Yellow));
-	curveX->attach(this);
-	mCurves << curveX;
-	QwtPlotCurve *curveY = new QwtPlotCurve("y");
-	curveY->setStyle(QwtPlotCurve::Lines);
-	curveY->setPen(QPen(Qt::red));
-	//curveY->setRenderHint(QwtPlotItem::RenderAntialiased, true);
-	curveY->setData(new PositionDataY(Yellow));
-	curveY->attach(this);
-	mCurves << curveY;
-	QwtPlotCurve *curveZ = new QwtPlotCurve("z");
-	curveZ->setStyle(QwtPlotCurve::Lines);
-	curveZ->setPen(QPen(Qt::blue));
-	//curveZ->setRenderHint(QwtPlotItem::RenderAntialiased, true);
-	curveZ->setData(new PositionDataZ(Yellow));
-	curveZ->attach(this);
-	mCurves << curveZ;
 	setAxisScale(QwtPlot::yLeft, 0.0, 50.0);
 	setAxisScale(QwtPlot::xBottom, 0.0, mInterval);
-	setAutoReplot(true);
+	//setAutoReplot(true);
 	qDebug() << "cache:" << canvas()->testPaintAttribute(QwtPlotCanvas::PaintCached);
 	mTimerId = startTimer(35);
 }
@@ -58,7 +37,7 @@ void PositionPlot::replot()
 
 void PositionPlot::timerEvent(QTimerEvent *event)
 {
-	if (event->timerId() == mTimerId) {
+	if (event->timerId() == mTimerId && !mCurves.isEmpty()) {
 		replot();
 		QRectF rect = mCurves.first()->data()->boundingRect();
 		float min = qMax(0.0, rect.right() - mInterval);
@@ -76,4 +55,36 @@ void PositionPlot::timerEvent(QTimerEvent *event)
 void PositionPlot::changeInterval(double newInterval)
 {
 	mInterval = newInterval;
+}
+
+void PositionPlot::setMarker(Marker which)
+{
+	for (int i = 0; i < mCurves.count(); i++) {
+		delete mCurves.at(i);
+	}
+	mCurves.clear();
+
+	QwtPlotCurve *curveX = new QwtPlotCurve("x");
+	curveX->setStyle(QwtPlotCurve::Lines);
+	curveX->setPen(QPen(Qt::green));
+	//curveX->setRenderHint(QwtPlotItem::RenderAntialiased, true);
+	curveX->setData(new PositionDataX(which));
+	curveX->attach(this);
+	mCurves << curveX;
+
+	QwtPlotCurve *curveY = new QwtPlotCurve("y");
+	curveY->setStyle(QwtPlotCurve::Lines);
+	curveY->setPen(QPen(Qt::red));
+	//curveY->setRenderHint(QwtPlotItem::RenderAntialiased, true);
+	curveY->setData(new PositionDataY(which));
+	curveY->attach(this);
+	mCurves << curveY;
+
+	QwtPlotCurve *curveZ = new QwtPlotCurve("z");
+	curveZ->setStyle(QwtPlotCurve::Lines);
+	curveZ->setPen(QPen(Qt::blue));
+	//curveZ->setRenderHint(QwtPlotItem::RenderAntialiased, true);
+	curveZ->setData(new PositionDataZ(which));
+	curveZ->attach(this);
+	mCurves << curveZ;
 }

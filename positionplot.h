@@ -1,6 +1,8 @@
 #ifndef PLOT_H
 #define PLOT_H
 
+#include "sample.h"
+
 #include <qwt_plot.h>
 
 class QwtPlotCurve;
@@ -21,6 +23,7 @@ signals:
 
 public slots:
 	void changeInterval(double newInterval);
+	void setMarker(Marker which);
 
 private:
 	QVector<QwtPlotCurve *> mCurves;

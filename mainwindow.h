@@ -24,6 +24,8 @@ private slots:
 	void pannedSlot(int, int);
 	void movedSlot(int, int);
 
+	void on_markerSelectComboBox_currentIndexChanged(int index);
+
 private:
 	Ui::MainWindow *ui;
 	PositionPlot *mPositionPlot;
