@@ -13,7 +13,6 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     samplingthread.cpp \
-    curvedata.cpp \
     signaldata.cpp \
     positiondatax.cpp \
     positiondatay.cpp \
@@ -27,7 +26,6 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     samplingthread.h \
-    curvedata.h \
     sample.h \
     signaldata.h \
     positiondatax.h \
