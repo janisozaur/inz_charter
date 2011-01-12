@@ -5,6 +5,7 @@
 #include "signaldata.h"
 
 #include <QSerialPort>
+#include <qwt_plot_panner.h>
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
@@ -15,6 +16,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	mDistancePlot = new DistancePlot(this);
 	ui->positionHorizontalLayout->addWidget(mPositionPlot, 10);
 	ui->distanceHorizontalLayout->addWidget(mDistancePlot, 10);
+	mPositionPanner = new QwtPlotPanner(mPositionPlot->canvas());
+	mPositionPanner->setMouseButton(Qt::MidButton);
+	mDistancePanner = new QwtPlotPanner(mDistancePlot->canvas());
+	mDistancePanner->setMouseButton(Qt::MidButton);
 
 	// use map to sort values
 	QMap<QString, QPortSettings::BaudRate> map;

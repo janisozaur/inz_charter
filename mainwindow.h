@@ -9,6 +9,7 @@ namespace Ui {
 
 class PositionPlot;
 class DistancePlot;
+class QwtPlotPanner;
 
 class MainWindow : public QMainWindow
 {
@@ -25,6 +26,8 @@ private:
 	Ui::MainWindow *ui;
 	PositionPlot *mPositionPlot;
 	DistancePlot *mDistancePlot;
+	QwtPlotPanner *mPositionPanner;
+	QwtPlotPanner *mDistancePanner;
 };
 
 #endif // MAINWINDOW_H
