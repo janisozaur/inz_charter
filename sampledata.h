@@ -19,7 +19,7 @@ public:
 protected:
 	virtual QPointF pointFromSample(const Sample &sample) const = 0;
 
-private:
+protected:
 	mutable QMutex mMutex;
 	QVector<QPointF> mSamples;
 	QRectF mBoundingRect;

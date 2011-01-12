@@ -6,12 +6,12 @@
 SampleData::SampleData(Marker which) :
 	mWhich(which)
 {
-	qDebug() << "PositionData ctor" << mWhich << this;
+	qDebug() << "SampleData ctor" << mWhich << this;
 }
 
 SampleData::~SampleData()
 {
-	qDebug() << "PositionData dtor" << this;
+	qDebug() << "SampleData dtor" << this;
 }
 
 QPointF SampleData::sample(size_t i) const

@@ -3,6 +3,7 @@
 DistanceDataUp::DistanceDataUp(Marker which) :
 	SampleData(which)
 {
+	qDebug() << "DistanceDataUp ctor" << mWhich << this;
 }
 
 QPointF DistanceDataUp::pointFromSample(const Sample &sample) const

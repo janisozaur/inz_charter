@@ -3,6 +3,7 @@
 DistanceDataRight::DistanceDataRight(Marker which) :
 	SampleData(which)
 {
+	qDebug() << "DistanceDataRight ctor" << mWhich << this;
 }
 
 QPointF DistanceDataRight::pointFromSample(const Sample &sample) const

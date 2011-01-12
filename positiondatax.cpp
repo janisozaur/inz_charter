@@ -3,6 +3,7 @@
 PositionDataX::PositionDataX(Marker which) :
 	SampleData(which)
 {
+	qDebug() << "PositionDataX ctor" << mWhich << this;
 }
 
 QPointF PositionDataX::pointFromSample(const Sample &sample) const
