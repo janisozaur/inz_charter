@@ -25,6 +25,7 @@ public:
 signals:
 	void started();
 	void finished();
+	void error(QString);
 
 public slots:
 	void fetchSamples();
