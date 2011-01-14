@@ -27,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(mDistancePlot, SIGNAL(pan(int,int)), mDistancePanner, SIGNAL(panned(int,int)));
 	connect(mPositionPlot, SIGNAL(pan(int,int)), mPositionPanner, SIGNAL(panned(int,int)));
 
+	connect(&SignalData::instance(), SIGNAL(started()), this, SLOT(threadStarted()));
+	connect(&SignalData::instance(), SIGNAL(finished()), this, SLOT(threadFinished()));
+
 	// use map to sort values
 	QMap<QString, QPortSettings::BaudRate> map;
 	// values stolen from qportsettings.h
@@ -109,4 +112,14 @@ void MainWindow::on_markerSelectComboBox_currentIndexChanged(int index)
 {
 	mPositionPlot->setMarker((Marker)ui->markerSelectComboBox->itemData(index).toInt());
 	mDistancePlot->setMarker((Marker)ui->markerSelectComboBox->itemData(index).toInt());
+}
+
+void MainWindow::threadStarted()
+{
+	ui->statusBar->showMessage("Thread started!");
+}
+
+void MainWindow::threadFinished()
+{
+	ui->statusBar->showMessage("Thread terminated!");
 }

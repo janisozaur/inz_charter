@@ -23,6 +23,8 @@ private slots:
 	void on_startButton_clicked();
 	void pannedSlot(int, int);
 	void movedSlot(int, int);
+	void threadStarted();
+	void threadFinished();
 
 	void on_markerSelectComboBox_currentIndexChanged(int index);
 

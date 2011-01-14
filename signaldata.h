@@ -11,7 +11,7 @@
 #include "samplingthread.h"
 #include "positiondatax.h"
 
-class SignalData : QObject
+class SignalData : public QObject
 {
 	Q_OBJECT
 public:
@@ -21,6 +21,10 @@ public:
 	Sample value(Marker which, int index) const;
 	QRectF boundingRect(Marker which) const;
 	void wait();
+
+signals:
+	void started();
+	void finished();
 
 public slots:
 	void fetchSamples();
