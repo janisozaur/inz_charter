@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include <QSerialPort>
 #include <cmath>
+#include <QMatrix4x4>
 
 #include <QDebug>
 
@@ -106,13 +107,15 @@ void SamplingThread::append(const QByteArray &data, double elapsed)
 		// distance on y axis of 2nd receiver (sqrt(3)/2 * d)
 		float j = 28.5788383f;
 
-		float x = (pow(mySample.left, 2) - pow(mySample.right, 2) + pow(d, 2)) / (2 * d);
-		float y = ((pow(mySample.left, 2) - pow(mySample.up, 2) + pow(i, 2) + pow(j, 2)) / (2 * j)) - ((i * x) / j);
-		float z = sqrt(pow(mySample.left, 2) - pow(x, 2) - pow(y, 2));
+		qreal x = (pow(mySample.left, 2) - pow(mySample.right, 2) + pow(d, 2)) / (2 * d);
+		qreal y = ((pow(mySample.left, 2) - pow(mySample.up, 2) + pow(i, 2) + pow(j, 2)) / (2 * j)) - ((i * x) / j);
+		qreal z = sqrt(pow(mySample.left, 2) - pow(x, 2) - pow(y, 2));
 
-		mySample.x = x;
-		mySample.y = y;
-		mySample.z = z;
+		QMatrix4x4 rot;
+		rot.rotate(60, 0, 0, 1);
+
+		QVector3D pos(-x, -y, -z);
+		mySample.pos = pos * rot;
 
 		//qDebug() << mySample.marker << mTempData.left(8).toHex();
 		//qDebug() << "Sample(" << mySample.left << "," << mySample.right << "," <<

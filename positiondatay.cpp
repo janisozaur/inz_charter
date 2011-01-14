@@ -8,5 +8,5 @@ PositionDataY::PositionDataY(Marker which) :
 
 QPointF PositionDataY::pointFromSample(const Sample &sample) const
 {
-	return QPointF(sample.time, sample.y);
+	return QPointF(sample.time, sample.pos.y());
 }
