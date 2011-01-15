@@ -75,14 +75,15 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->portBaudRateComboBox->setCurrentIndex(
 				ui->portBaudRateComboBox->findText("BAUDR_9600"));
 
-	ui->markerSelectComboBox->addItem("Blue",   Sample::Blue);
-	ui->markerSelectComboBox->addItem("Yellow", Sample::Yellow);
-	ui->markerSelectComboBox->setCurrentIndex(ui->markerSelectComboBox->findText("Yellow"));
-
 	const QMetaObject metaObject = Sample::staticMetaObject;
 	const QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("Marker"));
 	for (int i = 0; i < metaEnum.keyCount(); i++) {
-		qDebug() << metaEnum.key(i) << metaEnum.value(i);
+		ui->markerSelectComboBox->addItem(metaEnum.key(i), metaEnum.value(i));
+	}
+
+	int idx = ui->markerSelectComboBox->findText("Yellow");
+	if (idx != -1) {
+		ui->markerSelectComboBox->setCurrentIndex(idx);
 	}
 
 #ifdef Q_OS_LINUX

@@ -33,8 +33,8 @@ public slots:
 private:
 	SignalData();
 	~SignalData();
-	QVector<Sample> mBlueSamples, mYellowSamples;
-	QRectF mBlueBoundingRect, mYellowBoundingRect;
+	QHash<Sample::Marker, QVector<Sample> > mSamples;
+	QHash<Sample::Marker, QRectF> mBoundingRects;
 	mutable QMutex mMutex;
 	SamplingThread mSampler;
 

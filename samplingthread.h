@@ -25,6 +25,7 @@ protected:
 	virtual void sample(double elapsed);
 	void append(Sample mySample);
 	void append(const QByteArray &data, double elapsed);
+	bool isValidSample(const char c) const;
 
 signals:
 	void dataArrived();
@@ -35,6 +36,7 @@ private:
 	QByteArray mTempData;
 	QMutex mutex;
 	QSerialPort *mpSerport;
+	QVector<Sample::Marker> mMarkers;
 
 signals:
 

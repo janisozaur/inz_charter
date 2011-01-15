@@ -4,6 +4,7 @@
 #include <QSerialPort>
 #include <cmath>
 #include <QMatrix4x4>
+#include <QMetaEnum>
 
 #include <QDebug>
 
@@ -13,6 +14,12 @@ SamplingThread::SamplingThread(QObject *parent) :
 {
 	qDebug() << "SamplingThread ctor" << this;
 	this->setInterval(25);
+
+	const QMetaObject metaObject = Sample::staticMetaObject;
+	const QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("Marker"));
+	for (int i = 0; i < metaEnum.keyCount(); i++) {
+		mMarkers.append((Sample::Marker)metaEnum.value(i));
+	}
 }
 
 SamplingThread::~SamplingThread()
@@ -85,13 +92,18 @@ void SamplingThread::append(Sample mySample)
 	emit dataArrived();
 }
 
+bool SamplingThread::isValidSample(const char c) const
+{
+	return mMarkers.contains((Sample::Marker)c);
+}
+
 void SamplingThread::append(const QByteArray &data, double elapsed)
 {
 	QMutexLocker locker(&mutex);
 	mTempData.append(data);
 	while (mTempData.size() >= 8) {
 		// skip any leading malformed data
-		while (mTempData.size() >= 8 && (!(mTempData.at(0) == Sample::Yellow || mTempData.at(0) == Sample::Blue) || mTempData.at(7) != (char)0xFF)) {
+		while (mTempData.size() >= 8 && ((mTempData.at(7) != (char)0xFF) || !isValidSample(mTempData.at(0)))) {
 			//qDebug() << "****************** removing data";
 			mTempData.remove(0, 1);
 		}
