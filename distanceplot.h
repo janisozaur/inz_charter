@@ -23,7 +23,7 @@ signals:
 
 public slots:
 	void changeInterval(double newInterval);
-	void setMarker(Marker which);
+	void setMarker(Sample::Marker which);
 
 private:
 	QVector<QwtPlotCurve *> mCurves;

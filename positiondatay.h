@@ -6,7 +6,7 @@
 class PositionDataY : public SampleData
 {
 public:
-	PositionDataY(Marker which);
+	PositionDataY(Sample::Marker which);
 
 protected:
 	virtual QPointF pointFromSample(const Sample &sample) const;

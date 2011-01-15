@@ -1,6 +1,6 @@
 #include "distancedataleft.h"
 
-DistanceDataLeft::DistanceDataLeft(Marker which) :
+DistanceDataLeft::DistanceDataLeft(Sample::Marker which) :
 	SampleData(which)
 {
 	qDebug() << "DistanceDataLeft ctor" << mWhich << this;

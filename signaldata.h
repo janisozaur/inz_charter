@@ -17,9 +17,9 @@ class SignalData : public QObject
 public:
 	static SignalData &instance();
 
-	int size(Marker which) const;
-	Sample value(Marker which, int index) const;
-	QRectF boundingRect(Marker which) const;
+	int size(Sample::Marker which) const;
+	Sample value(Sample::Marker which, int index) const;
+	QRectF boundingRect(Sample::Marker which) const;
 	void wait();
 
 signals:

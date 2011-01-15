@@ -22,7 +22,8 @@ SOURCES += main.cpp\
 	distancedataright.cpp \
 	distancedataleft.cpp \
     positionplot.cpp \
-    distanceplot.cpp
+    distanceplot.cpp \
+    sample.cpp
 
 HEADERS  += mainwindow.h \
     samplingthread.h \

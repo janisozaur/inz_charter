@@ -1,6 +1,6 @@
 #include "distancedataup.h"
 
-DistanceDataUp::DistanceDataUp(Marker which) :
+DistanceDataUp::DistanceDataUp(Sample::Marker which) :
 	SampleData(which)
 {
 	qDebug() << "DistanceDataUp ctor" << mWhich << this;

@@ -57,7 +57,7 @@ void PositionPlot::changeInterval(double newInterval)
 	mInterval = newInterval;
 }
 
-void PositionPlot::setMarker(Marker which)
+void PositionPlot::setMarker(Sample::Marker which)
 {
 	for (int i = 0; i < mCurves.count(); i++) {
 		delete mCurves.at(i);

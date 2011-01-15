@@ -6,6 +6,7 @@
 #include "sample.h"
 
 #include <QSerialPort>
+#include <QMetaEnum>
 #include <qwt_plot_panner.h>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -74,9 +75,15 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->portBaudRateComboBox->setCurrentIndex(
 				ui->portBaudRateComboBox->findText("BAUDR_9600"));
 
-	ui->markerSelectComboBox->addItem("Blue",   Blue);
-	ui->markerSelectComboBox->addItem("Yellow", Yellow);
+	ui->markerSelectComboBox->addItem("Blue",   Sample::Blue);
+	ui->markerSelectComboBox->addItem("Yellow", Sample::Yellow);
 	ui->markerSelectComboBox->setCurrentIndex(ui->markerSelectComboBox->findText("Yellow"));
+
+	const QMetaObject metaObject = Sample::staticMetaObject;
+	const QMetaEnum metaEnum = metaObject.enumerator(metaObject.indexOfEnumerator("Marker"));
+	for (int i = 0; i < metaEnum.keyCount(); i++) {
+		qDebug() << metaEnum.key(i) << metaEnum.value(i);
+	}
 
 #ifdef Q_OS_LINUX
 	ui->portNameLineEdit->setText("/dev/ttyUSB0");
@@ -111,8 +118,8 @@ void MainWindow::on_startButton_clicked()
 
 void MainWindow::on_markerSelectComboBox_currentIndexChanged(int index)
 {
-	mPositionPlot->setMarker((Marker)ui->markerSelectComboBox->itemData(index).toInt());
-	mDistancePlot->setMarker((Marker)ui->markerSelectComboBox->itemData(index).toInt());
+	mPositionPlot->setMarker((Sample::Marker)ui->markerSelectComboBox->itemData(index).toInt());
+	mDistancePlot->setMarker((Sample::Marker)ui->markerSelectComboBox->itemData(index).toInt());
 }
 
 void MainWindow::threadStarted()

@@ -3,7 +3,7 @@
 #include <QMutexLocker>
 #include <QDebug>
 
-SampleData::SampleData(Marker which) :
+SampleData::SampleData(Sample::Marker which) :
 	mWhich(which)
 {
 	qDebug() << "SampleData ctor" << mWhich << this;

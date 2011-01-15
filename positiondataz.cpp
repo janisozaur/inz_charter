@@ -1,6 +1,6 @@
 #include "positiondataz.h"
 
-PositionDataZ::PositionDataZ(Marker which) :
+PositionDataZ::PositionDataZ(Sample::Marker which) :
 	SampleData(which)
 {
 	qDebug() << "PositionDataZ ctor" << mWhich << this;

@@ -59,7 +59,7 @@ void DistancePlot::changeInterval(double newInterval)
 	mInterval = newInterval;
 }
 
-void DistancePlot::setMarker(Marker which)
+void DistancePlot::setMarker(Sample::Marker which)
 {
 	for (int i = 0; i < mCurves.count(); i++) {
 		delete mCurves.at(i);

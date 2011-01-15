@@ -6,7 +6,7 @@
 class DistanceDataLeft : public SampleData
 {
 public:
-	DistanceDataLeft(Marker which);
+	DistanceDataLeft(Sample::Marker which);
 
 protected:
 	QPointF pointFromSample(const Sample &sample) const;

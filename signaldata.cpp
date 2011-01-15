@@ -24,16 +24,16 @@ SignalData::~SignalData()
 	// TODO: stop sampling thread
 }
 
-Sample SignalData::value(Marker which, int index) const
+Sample SignalData::value(Sample::Marker which, int index) const
 {
 	QMutexLocker locker(&mMutex);
 	//qDebug() << "asking for value of sample" << index;
 	//return mSamples[index];
 	switch (which) {
-		case Yellow:
+		case Sample::Yellow:
 			return mYellowSamples.at(index);
 			break;
-		case Blue:
+		case Sample::Blue:
 			return mBlueSamples.at(index);
 			break;
 		default:
@@ -42,14 +42,14 @@ Sample SignalData::value(Marker which, int index) const
 	return Sample(); // never reached, just shut up compile warnings
 }
 
-int SignalData::size(Marker which) const
+int SignalData::size(Sample::Marker which) const
 {
 	QMutexLocker locker(&mMutex);
 	switch (which) {
-		case Yellow:
+		case Sample::Yellow:
 			return mYellowSamples.size();
 			break;
-		case Blue:
+		case Sample::Blue:
 			return mBlueSamples.size();
 			break;
 		default:
@@ -58,15 +58,15 @@ int SignalData::size(Marker which) const
 	return 0; // never reached, just shut up some warnings
 }
 
-QRectF SignalData::boundingRect(Marker which) const
+QRectF SignalData::boundingRect(Sample::Marker which) const
 {
 	QMutexLocker locker(&mMutex);
 	QRectF result;
 	switch (which) {
-		case Yellow:
+		case Sample::Yellow:
 			result = mYellowBoundingRect;
 			break;
-		case Blue:
+		case Sample::Blue:
 			result = mBlueBoundingRect;
 			break;
 		default:
@@ -85,11 +85,11 @@ void SignalData::fetchSamples()
 		qreal y = qMax(mySample.left, qMax(mySample.right, mySample.up));
 		QRectF *br;
 		switch (mySample.marker) {
-			case Yellow:
+			case Sample::Yellow:
 				br = &mYellowBoundingRect;
 				mYellowSamples << mySample;
 				break;
-			case Blue:
+			case Sample::Blue:
 				br = &mBlueBoundingRect;
 				mBlueSamples << mySample;
 				break;
